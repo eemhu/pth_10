@@ -63,4 +63,9 @@ public class EmptyDataframeStep extends AbstractStep {
         }
         return SparkSession.builder().getOrCreate().emptyDataFrame();
     }
+
+    @Override
+    public String toString() {
+        return "EmptyDataframeStep{}";
+    }
 }

@@ -101,4 +101,9 @@ public final class EvalStep extends AbstractEvalStep {
         }
         return false;
     }
+
+    @Override
+    public String toString() {
+        return "EvalStep{" + "leftSide='" + leftSide + '\'' + ", rightSide=" + rightSide + '}';
+    }
 }

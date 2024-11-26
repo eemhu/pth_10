@@ -119,4 +119,9 @@ public final class LogicalXMLStep extends AbstractStep {
 
         return ds;
     }
+
+    @Override
+    public String toString() {
+        return "LogicalXMLStep{" + "archiveQuery=" + archiveQuery + ", isMetadataQuery=" + isMetadataQuery + '}';
+    }
 }

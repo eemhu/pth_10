@@ -203,4 +203,10 @@ public class TeragrepDynatraceStep extends AbstractStep implements Flushable {
             }
         });
     }
+
+    @Override
+    public String toString() {
+        return "TeragrepDynatraceStep{" + "metricsApiUrl='" + metricsApiUrl + '\'' + ", metricKey='" + metricKey + '\''
+                + '}';
+    }
 }

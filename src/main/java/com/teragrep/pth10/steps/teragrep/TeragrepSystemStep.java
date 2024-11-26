@@ -143,4 +143,9 @@ public final class TeragrepSystemStep extends AbstractStep {
         }
         return rv;
     }
+
+    @Override
+    public String toString() {
+        return "TeragrepSystemStep{}";
+    }
 }

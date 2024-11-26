@@ -127,4 +127,10 @@ public final class Rex4jStep extends AbstractRex4jStep {
             return res;
         }
     }
+
+    @Override
+    public String toString() {
+        return "Rex4jStep{" + "sedMode='" + sedMode + '\'' + ", regexStr='" + regexStr + '\'' + ", field='" + field
+                + '\'' + ", maxMatch=" + maxMatch + '}';
+    }
 }

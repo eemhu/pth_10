@@ -160,4 +160,10 @@ public class EventstatsStep extends AbstractEventstatsStep {
 
         return resultDs;
     }
+
+    @Override
+    public String toString() {
+        return "EventstatsStep{" + "listOfAggregations=" + listOfAggregations + ", byInstruction='" + byInstruction
+                + '\'' + '}';
+    }
 }

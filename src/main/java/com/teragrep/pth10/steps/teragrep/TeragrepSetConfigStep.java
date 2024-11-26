@@ -107,4 +107,9 @@ public final class TeragrepSetConfigStep extends AbstractStep {
 
         return dataset;
     }
+
+    @Override
+    public String toString() {
+        return "TeragrepSetConfigStep{" + "key='" + key + '\'' + ", value='" + value + '\'' + '}';
+    }
 }

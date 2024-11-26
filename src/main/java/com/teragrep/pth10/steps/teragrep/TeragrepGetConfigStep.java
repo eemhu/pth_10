@@ -83,4 +83,9 @@ public final class TeragrepGetConfigStep extends AbstractStep {
 
         return dataset;
     }
+
+    @Override
+    public String toString() {
+        return "TeragrepGetConfigStep{}";
+    }
 }

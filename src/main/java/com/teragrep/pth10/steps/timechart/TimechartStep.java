@@ -90,4 +90,10 @@ public final class TimechartStep extends AbstractTimechartStep {
                 .drop("window")
                 .orderBy("_time");
     }
+
+    @Override
+    public String toString() {
+        return "TimechartStep{" + "aggCols=" + aggCols + ", divByInsts=" + divByInsts + ", span=" + span
+                + ", aggregateField='" + aggregateField + '\'' + '}';
+    }
 }

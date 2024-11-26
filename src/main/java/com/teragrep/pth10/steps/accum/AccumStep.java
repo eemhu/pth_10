@@ -197,4 +197,9 @@ public class AccumStep extends AbstractStep implements Serializable {
         state.update(currentState);
         return newEvents.iterator();
     }
+
+    @Override
+    public String toString() {
+        return "AccumStep{" + "sourceField='" + sourceField + '\'' + ", renameField='" + renameField + '\'' + '}';
+    }
 }

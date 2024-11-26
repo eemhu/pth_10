@@ -70,4 +70,10 @@ public final class RegexStep extends AbstractRegexStep {
                 .callUDF("UDF_Regex", functions.col(fromField), functions.lit(regexString), functions.lit(equals));
         return dataset.where(regexCol); // apply as where statement
     }
+
+    @Override
+    public String toString() {
+        return "RegexStep{" + "fromField='" + fromField + '\'' + ", regexString='" + regexString + '\'' + ", equals="
+                + equals + '}';
+    }
 }

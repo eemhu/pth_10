@@ -75,4 +75,9 @@ public class TeragrepSyslogStep extends AbstractStep {
 
         return dataset.map(syslogStreamer, dataset.exprEnc());
     }
+
+    @Override
+    public String toString() {
+        return "TeragrepSyslogStep{" + "relpHost='" + relpHost + '\'' + ", relpPort=" + relpPort + '}';
+    }
 }

@@ -126,4 +126,10 @@ public final class SpathStep extends AbstractSpathStep {
 
         return withAppliedUdfDs;
     }
+
+    @Override
+    public String toString() {
+        return "SpathStep{" + "autoExtractionMode=" + autoExtractionMode + ", path='" + path + '\'' + ", outputColumn='"
+                + outputColumn + '\'' + ", inputColumn='" + inputColumn + '\'' + '}';
+    }
 }

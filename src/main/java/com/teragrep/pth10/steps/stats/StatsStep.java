@@ -85,4 +85,10 @@ public final class StatsStep extends AbstractStatsStep {
             return dataset.agg(mainExpr, seqOfAggs);
         }
     }
+
+    @Override
+    public String toString() {
+        return "StatsStep{" + "listOfAggregationExpressions=" + listOfAggregationExpressions + ", listOfGroupBys="
+                + listOfGroupBys + '}';
+    }
 }

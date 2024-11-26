@@ -109,4 +109,10 @@ public final class RexStep extends AbstractRexStep {
 
         return res;
     }
+
+    @Override
+    public String toString() {
+        return "RexStep{" + "regexStr='" + regexStr + '\'' + ", field='" + field + '\'' + ", offsetField='"
+                + offsetField + '\'' + ", maxMatch=" + maxMatch + ", sedMode=" + sedMode + '}';
+    }
 }

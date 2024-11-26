@@ -57,4 +57,9 @@ public class NullStep extends AbstractStep {
     public Dataset<Row> get(Dataset<Row> dataset) {
         return dataset;
     }
+
+    @Override
+    public String toString() {
+        return "NullStep{}";
+    }
 }

@@ -101,4 +101,10 @@ public final class TeragrepTokenizerStep extends AbstractTokenizerStep {
         }
         return dataset.withColumn(outputCol, appliedColumn);
     }
+
+    @Override
+    public String toString() {
+        return "TeragrepTokenizerStep{" + "tokenizerFormat=" + tokenizerFormat + ", inputCol='" + inputCol + '\''
+                + ", outputCol='" + outputCol + '\'' + '}';
+    }
 }

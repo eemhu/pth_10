@@ -181,4 +181,9 @@ public final class TeragrepHdfsListStep extends AbstractStep {
         // filter null-name rows out
         return generated.where(functions.col("name").isNotNull());
     }
+
+    @Override
+    public String toString() {
+        return "TeragrepHdfsListStep{" + "pathStr='" + pathStr + '\'' + '}';
+    }
 }

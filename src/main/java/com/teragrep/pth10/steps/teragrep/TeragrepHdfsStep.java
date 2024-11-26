@@ -101,4 +101,9 @@ public abstract class TeragrepHdfsStep extends AbstractStep {
 
         return deserialized;
     }
+
+    @Override
+    public String toString() {
+        return "TeragrepHdfsStep{}";
+    }
 }

@@ -78,4 +78,9 @@ public final class ChartStep extends AbstractChartStep {
 
         return dataset.groupBy(seqOfGroupBy).agg(mainExpr, seqOfExpr);
     }
+
+    @Override
+    public String toString() {
+        return "ChartStep{" + "listOfExpr=" + listOfExpr + ", listOfGroupBy=" + listOfGroupBy + '}';
+    }
 }

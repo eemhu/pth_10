@@ -329,4 +329,10 @@ public final class TeragrepKafkaStep extends AbstractStep implements Flushable {
         }
         return dataset;
     }
+
+    @Override
+    public String toString() {
+        return "TeragrepKafkaStep{" + "hdfsPath='" + hdfsPath + '\'' + ", kafkaTopic='" + kafkaTopic + '\''
+                + ", inSequentialMode=" + inSequentialMode + '}';
+    }
 }

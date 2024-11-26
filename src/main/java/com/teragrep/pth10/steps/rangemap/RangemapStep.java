@@ -84,4 +84,10 @@ public final class RangemapStep extends AbstractRangemapStep {
         return dataset
                 .withColumn("range", functions.callUDF("RangemapUDF", functions.col(sourceField), functions.lit(defaultValue), mapCol));
     }
+
+    @Override
+    public String toString() {
+        return "RangemapStep{" + "sourceField='" + sourceField + '\'' + ", defaultValue='" + defaultValue + '\''
+                + ", attributeRangeMap=" + attributeRangeMap + '}';
+    }
 }

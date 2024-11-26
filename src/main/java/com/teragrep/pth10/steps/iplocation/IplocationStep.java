@@ -178,4 +178,10 @@ public final class IplocationStep extends AbstractIplocationStep {
 
         return hadoopCfgAsMap;
     }
+
+    @Override
+    public String toString() {
+        return "IplocationStep{" + "lang='" + lang + '\'' + ", field='" + field + '\'' + ", allFields=" + allFields
+                + ", prefix='" + prefix + '\'' + ", pathToDb='" + pathToDb + '\'' + '}';
+    }
 }

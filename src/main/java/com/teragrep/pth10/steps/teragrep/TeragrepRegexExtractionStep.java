@@ -82,4 +82,10 @@ public final class TeragrepRegexExtractionStep extends AbstractStep {
 
         return tokenizer.transform(dataset);
     }
+
+    @Override
+    public String toString() {
+        return "TeragrepRegexExtractionStep{" + "regex='" + regex + '\'' + ", inputCol='" + inputCol + '\''
+                + ", outputCol='" + outputCol + '\'' + '}';
+    }
 }

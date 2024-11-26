@@ -98,4 +98,9 @@ public class FillnullStep extends AbstractFillnullStep {
         }
         return fieldExists;
     }
+
+    @Override
+    public String toString() {
+        return "FillnullStep{" + "listOfFields=" + listOfFields + ", fillerString='" + fillerString + '\'' + '}';
+    }
 }

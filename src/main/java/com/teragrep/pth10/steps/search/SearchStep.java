@@ -59,4 +59,9 @@ public class SearchStep extends AbstractSearchStep {
         LOGGER.info("Filtering search with column: <{}>", this.filteringColumn.toString());
         return dataset.where(this.filteringColumn);
     }
+
+    @Override
+    public String toString() {
+        return "SearchStep{" + "filteringColumn=" + filteringColumn + '}';
+    }
 }

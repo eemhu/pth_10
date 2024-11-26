@@ -360,4 +360,10 @@ public final class TeragrepHdfsLoadStep extends TeragrepHdfsStep {
 
         return new StructType(structFields);
     }
+
+    @Override
+    public String toString() {
+        return "TeragrepHdfsLoadStep{" + "pathStr='" + pathStr + '\'' + ", format=" + format + ", header=" + header
+                + ", schema='" + schema + '\'' + '}';
+    }
 }

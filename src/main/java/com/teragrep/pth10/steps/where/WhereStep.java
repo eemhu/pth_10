@@ -62,4 +62,9 @@ public final class WhereStep extends AbstractWhereStep {
 
         return dataset.where(this.whereColumn);
     }
+
+    @Override
+    public String toString() {
+        return "WhereStep{" + "whereColumn=" + whereColumn + '}';
+    }
 }

@@ -156,4 +156,9 @@ public final class TableStep extends AbstractTableStep {
 
         return matchedFields;
     }
+
+    @Override
+    public String toString() {
+        return "TableStep{" + "listOfFields=" + listOfFields + '}';
+    }
 }

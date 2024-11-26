@@ -285,4 +285,10 @@ public final class TeragrepHdfsSaveStep extends TeragrepHdfsStep {
         }
         return dataset;
     }
+
+    @Override
+    public String toString() {
+        return "TeragrepHdfsSaveStep{" + "overwrite=" + overwrite + ", pathStr='" + pathStr + '\'' + ", retentionSpan='"
+                + retentionSpan + '\'' + ", format=" + format + ", header=" + header + '}';
+    }
 }

@@ -72,4 +72,9 @@ public final class DplStep extends AbstractDplStep {
 
         return rv;
     }
+
+    @Override
+    public String toString() {
+        return "DplStep{" + "commandType=" + commandType + '}';
+    }
 }

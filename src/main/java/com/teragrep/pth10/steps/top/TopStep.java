@@ -62,4 +62,9 @@ public final class TopStep extends AbstractTopStep {
 
         return dataset.limit(this.limit);
     }
+
+    @Override
+    public String toString() {
+        return "TopStep{" + "limit=" + limit + '}';
+    }
 }

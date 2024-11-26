@@ -71,4 +71,9 @@ public final class FieldsStep extends AbstractFieldsStep {
             throw new UnsupportedOperationException("Invalid FieldMode: " + this.mode);
         }
     }
+
+    @Override
+    public String toString() {
+        return "FieldsStep{" + "listOfFields=" + listOfFields + ", mode=" + mode + '}';
+    }
 }

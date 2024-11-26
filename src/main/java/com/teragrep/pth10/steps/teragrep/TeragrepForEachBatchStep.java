@@ -61,4 +61,9 @@ public final class TeragrepForEachBatchStep extends AbstractStep {
     public Dataset<Row> get(Dataset<Row> dataset) throws StreamingQueryException {
         return dataset;
     }
+
+    @Override
+    public String toString() {
+        return "TeragrepForEachBatchStep{}";
+    }
 }

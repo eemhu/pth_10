@@ -149,4 +149,10 @@ public final class MakeresultsStep extends AbstractMakeresultsStep {
 
         return JavaConverters.asScalaIteratorConverter(rowsList.iterator()).asScala().toSeq();
     }
+
+    @Override
+    public String toString() {
+        return "MakeresultsStep{" + "count=" + count + ", serverGroups=" + serverGroups + ", server='" + server + '\''
+                + ", annotate=" + annotate + '}';
+    }
 }

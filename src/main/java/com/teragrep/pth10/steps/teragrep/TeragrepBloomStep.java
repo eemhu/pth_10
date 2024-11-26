@@ -209,4 +209,10 @@ public final class TeragrepBloomStep extends AbstractStep {
             }
         }
     }
+
+    @Override
+    public String toString() {
+        return "TeragrepBloomStep{" + "mode=" + mode + ", inputCol='" + inputCol + '\'' + ", outputCol='" + outputCol
+                + '\'' + ", estimateCol='" + estimateCol + '\'' + '}';
+    }
 }

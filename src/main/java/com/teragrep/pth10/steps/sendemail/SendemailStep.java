@@ -91,4 +91,9 @@ public final class SendemailStep extends AbstractSendemailStep implements Flusha
 
         return dataset;
     }
+
+    @Override
+    public String toString() {
+        return "SendemailStep{" + "sendResults=" + sendResults + '}';
+    }
 }

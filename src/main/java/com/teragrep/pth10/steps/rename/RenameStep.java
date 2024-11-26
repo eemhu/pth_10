@@ -71,4 +71,9 @@ public final class RenameStep extends AbstractRenameStep {
 
         return res;
     }
+
+    @Override
+    public String toString() {
+        return "RenameStep{" + "mapOfRenamedFields=" + mapOfRenamedFields + '}';
+    }
 }

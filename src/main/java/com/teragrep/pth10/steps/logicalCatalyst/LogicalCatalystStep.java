@@ -75,4 +75,9 @@ public final class LogicalCatalystStep extends AbstractStep {
             throw new RuntimeException("LogicalCatalystStep got a null dataset!");
         }
     }
+
+    @Override
+    public String toString() {
+        return "LogicalCatalystStep{" + "filterColumn=" + filterColumn + '}';
+    }
 }

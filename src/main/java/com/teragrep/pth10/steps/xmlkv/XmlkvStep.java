@@ -90,4 +90,9 @@ public class XmlkvStep extends AbstractXmlkvStep {
 
         return dataset.drop(mapColName);
     }
+
+    @Override
+    public String toString() {
+        return "XmlkvStep{" + "field='" + field + '\'' + ", maxInputs=" + maxInputs + '}';
+    }
 }

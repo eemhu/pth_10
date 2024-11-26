@@ -158,4 +158,9 @@ public final class SubsearchStep extends AbstractSubsearchStep {
 
         return subSearchDs;
     }
+
+    @Override
+    public String toString() {
+        return "SubsearchStep{" + "type=" + type + ", hdfsPath='" + hdfsPath + '\'' + '}';
+    }
 }

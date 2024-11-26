@@ -133,4 +133,9 @@ public final class TeragrepHdfsDeleteStep extends AbstractStep {
 
         return generated;
     }
+
+    @Override
+    public String toString() {
+        return "TeragrepHdfsDeleteStep{" + "pathStr='" + pathStr + '\'' + '}';
+    }
 }

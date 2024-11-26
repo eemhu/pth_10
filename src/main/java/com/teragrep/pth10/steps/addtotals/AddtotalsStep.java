@@ -159,4 +159,11 @@ public class AddtotalsStep extends AbstractStep implements Serializable {
         bc.updateLastRow(lastRow);
         return bc.call(dataset, 0L, true);
     }
+
+    @Override
+    public String toString() {
+        return "AddtotalsStep{" + "row=" + row + ", col=" + col + ", fieldName='" + fieldName + '\'' + ", labelField='"
+                + labelField + '\'' + ", label='" + label + '\'' + ", fieldList=" + fieldList + ", numericColumnSum="
+                + numericColumnSum + '}';
+    }
 }

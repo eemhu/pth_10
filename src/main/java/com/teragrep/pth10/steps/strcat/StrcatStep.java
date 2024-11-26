@@ -124,4 +124,10 @@ public final class StrcatStep extends AbstractStrcatStep {
         });
         return fieldsRemoved;
     }
+
+    @Override
+    public String toString() {
+        return "StrcatStep{" + "allRequired=" + allRequired + ", destField='" + destField + '\'' + ", listOfFields="
+                + listOfFields + '}';
+    }
 }

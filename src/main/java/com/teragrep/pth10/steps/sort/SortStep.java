@@ -106,4 +106,10 @@ public final class SortStep extends AbstractSortStep {
         AggregatedSort aggSort = new AggregatedSort(this.limit, this.listOfSortByClauses);
         return aggSort.sort(unsortedDs);
     }
+
+    @Override
+    public String toString() {
+        return "SortStep{" + "listOfSortByClauses=" + listOfSortByClauses + ", desc=" + desc + ", limit=" + limit
+                + ", aggregatesUsed=" + aggregatesUsed + '}';
+    }
 }

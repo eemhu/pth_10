@@ -315,4 +315,10 @@ public final class ConvertStep extends AbstractConvertStep {
         Column udfResult = functions.callUDF("UDF_Rmunit", functions.col(field).cast(DataTypes.StringType));
         return dataset.withColumn(renameField == null ? field : renameField, udfResult);
     }
+
+    @Override
+    public String toString() {
+        return "ConvertStep{" + ", listOfCommands=" + listOfCommands + ", listOfFieldsToOmit=" + listOfFieldsToOmit
+                + ", timeformat='" + timeformat + '\'' + '}';
+    }
 }

@@ -94,4 +94,9 @@ public final class ExplainStep extends AbstractExplainStep {
 
         return rv;
     }
+
+    @Override
+    public String toString() {
+        return "ExplainStep{" + "mode=" + mode + '}';
+    }
 }

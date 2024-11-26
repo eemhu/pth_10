@@ -91,4 +91,9 @@ public final class ReplaceStep extends AbstractReplaceStep {
 
         return dataset;
     }
+
+    @Override
+    public String toString() {
+        return "ReplaceStep{" + "listOfFields=" + listOfFields + ", replacements=" + replacements + '}';
+    }
 }

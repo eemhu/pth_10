@@ -280,4 +280,11 @@ public final class DedupStep extends AbstractDedupStep {
         }
         return RowFactory.create(newRowValues.toArray());
     }
+
+    @Override
+    public String toString() {
+        return "DedupStep{" + "listOfFields=" + listOfFields + ", maxDuplicates=" + maxDuplicates + ", keepEmpty="
+                + keepEmpty + ", keepEvents=" + keepEvents + ", consecutive=" + consecutive + ", completeOutputMode="
+                + completeOutputMode + '}';
+    }
 }

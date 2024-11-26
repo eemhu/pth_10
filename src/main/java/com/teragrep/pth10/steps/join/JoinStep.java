@@ -234,4 +234,11 @@ public final class JoinStep extends AbstractJoinStep {
 
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "JoinStep{" + "joinMode='" + joinMode + '\'' + ", usetime=" + usetime + ", earlier=" + earlier
+                + ", overwrite=" + overwrite + ", max=" + max + ", listOfFields=" + listOfFields
+                + ", pathForSubsearchSave='" + pathForSubsearchSave + '\'' + '}';
+    }
 }

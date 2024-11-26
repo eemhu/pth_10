@@ -152,4 +152,12 @@ public final class FormatStep extends AbstractFormatStep implements Serializable
 
         return mappedDs.agg(functions.concat(concatRows).as("search"));
     }
+
+    @Override
+    public String toString() {
+        return "FormatStep{" + "mvSep='" + mvSep + '\'' + ", maxResults=" + maxResults + ", rowPrefix='" + rowPrefix
+                + '\'' + ", colPrefix='" + colPrefix + '\'' + ", colSep='" + colSep + '\'' + ", colSuffix='" + colSuffix
+                + '\'' + ", rowSep='" + rowSep + '\'' + ", rowSuffix='" + rowSuffix + '\'' + ", emptyStr='" + emptyStr
+                + '\'' + '}';
+    }
 }

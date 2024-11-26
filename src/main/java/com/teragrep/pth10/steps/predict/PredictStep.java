@@ -455,4 +455,13 @@ public final class PredictStep extends AbstractPredictStep {
     private double toDbl(Object o) {
         return Double.parseDouble(o.toString());
     }
+
+    @Override
+    public String toString() {
+        return "PredictStep{" + "algorithm=" + algorithm + ", listOfColumnsToPredict=" + listOfColumnsToPredict
+                + ", correlateField='" + correlateField + '\'' + ", suppressField='" + suppressField + '\''
+                + ", futureTimespan=" + futureTimespan + ", holdback=" + holdback + ", period=" + period + ", upper="
+                + upper + ", lower=" + lower + ", upperField='" + upperField + '\'' + ", lowerField='" + lowerField
+                + '\'' + '}';
+    }
 }
