@@ -46,6 +46,10 @@
 package com.teragrep.pth10.ast;
 
 import com.teragrep.functions.dpf_02.BatchCollect;
+import com.teragrep.functions.dpf_02.aggregate.LimitBuffer;
+import com.teragrep.functions.dpf_02.aggregate.RowArrayAggregator;
+import com.teragrep.functions.dpf_02.aggregate.SortBuffer;
+import com.teragrep.functions.dpf_02.operation.sort.TimestampSort;
 import com.teragrep.pth10.steps.AbstractStep;
 import org.apache.spark.api.java.function.VoidFunction2;
 import org.apache.spark.sql.Dataset;
@@ -61,10 +65,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class StepList implements VoidFunction2<Dataset<Row>, Long> {
@@ -81,6 +82,8 @@ public class StepList implements VoidFunction2<Dataset<Row>, Long> {
     private BatchCollect batchCollect; // standard batchCollect, used before sending batch event
     private BatchCollect sequentialModeBatchCollect; // used if in append mode and in sequential, to allow aggregates in sequential mode
     private DPLParserCatalystVisitor catVisitor;
+    private LimitBuffer limitBuffer;
+    private SortBuffer sortBuffer;
 
     public void setBatchCollect(BatchCollect batchCollect) {
         this.batchCollect = batchCollect;
@@ -104,6 +107,8 @@ public class StepList implements VoidFunction2<Dataset<Row>, Long> {
         this.catVisitor = catVisitor;
         this.batchCollect = new BatchCollect("_time", catVisitor.getCatalystContext().getDplRecallSize());
         this.sequentialModeBatchCollect = new BatchCollect(null, catVisitor.getCatalystContext().getDplRecallSize());
+        this.limitBuffer = new LimitBuffer(50_000);
+        this.sortBuffer = new SortBuffer(Collections.singletonList(new TimestampSort()));
     }
 
     /**
@@ -282,8 +287,17 @@ public class StepList implements VoidFunction2<Dataset<Row>, Long> {
             }
             else {
                 LOGGER.info("------------------ Aggregates NOT USED (before seq. switch), using batchCollect!");
-                this.batchCollect.collect(ds, id);
-                this.batchHandler.accept(batchCollect.getCollectedAsDataframe());
+                RowArrayAggregator agg0 = new RowArrayAggregator(sortBuffer, ds.schema());
+                ds = ds.agg(agg0.toColumn());
+                ds = ds.select(functions.explode(functions.col("`RowArrayAggregator(org.apache.spark.sql.Row)`.arrayOfInput")));
+                ds = ds.select("col.*");
+
+                RowArrayAggregator agg1 = new RowArrayAggregator(limitBuffer, ds.schema());
+                ds = ds.agg(agg1.toColumn());
+                ds = ds.select(functions.explode(functions.col("`RowArrayAggregator(org.apache.spark.sql.Row)`.arrayOfInput")));
+                ds = ds.select("col.*");
+
+                this.batchHandler.accept(ds);
             }
         }
     }

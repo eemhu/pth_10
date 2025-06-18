@@ -68,12 +68,22 @@ public class ConvertTransformationTest {
 
     // Use this file for dataset initialization
     String testFile = "src/test/resources/convertTfData*.jsonl"; // * to make the path into a directory path
-
+    final StructType testSchema = new StructType(new StructField[] {
+            new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
+            new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
+            new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
+            new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
+            new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
+            new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()),
+            new StructField("partition", DataTypes.StringType, true, new MetadataBuilder().build()),
+            new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()),
+            new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build())
+    });
     private StreamingTestUtil streamingTestUtil;
 
     @BeforeAll
     void setEnv() {
-        this.streamingTestUtil = new StreamingTestUtil();
+        this.streamingTestUtil = new StreamingTestUtil(testSchema);
         this.streamingTestUtil.setEnv();
     }
 
@@ -97,7 +107,7 @@ public class ConvertTransformationTest {
         streamingTestUtil.performDPLTest("index=index_A | convert ctime(offset) AS new", testFile, ds -> {
             final StructType expectedSchema = new StructType(new StructField[] {
                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                    new StructField("_time", DataTypes.StringType, true, new MetadataBuilder().build()),
+                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
                     new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
                     new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
                     new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
@@ -133,7 +143,7 @@ public class ConvertTransformationTest {
         streamingTestUtil.performDPLTest("index=index_A | convert ctime(offset)", testFile, ds -> {
             final StructType expectedSchema = new StructType(new StructField[] {
                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                    new StructField("_time", DataTypes.StringType, true, new MetadataBuilder().build()),
+                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
                     new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
                     new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
                     new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
@@ -175,7 +185,7 @@ public class ConvertTransformationTest {
                         testFile, ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.StringType, true, new MetadataBuilder().build()),
+                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
                                     new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
@@ -270,7 +280,7 @@ public class ConvertTransformationTest {
         streamingTestUtil.performDPLTest("index=index_A | convert dur2sec(dur) as dur_sec", testFile, ds -> {
             final StructType expectedSchema = new StructType(new StructField[] {
                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                    new StructField("_time", DataTypes.StringType, true, new MetadataBuilder().build()),
+                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
                     new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
                     new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
                     new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
@@ -312,7 +322,7 @@ public class ConvertTransformationTest {
                         testFile, ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.StringType, true, new MetadataBuilder().build()),
+                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
                                     new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
@@ -389,7 +399,7 @@ public class ConvertTransformationTest {
                         testFile, ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.StringType, true, new MetadataBuilder().build()),
+                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
                                     new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
@@ -439,7 +449,7 @@ public class ConvertTransformationTest {
                         testFile, ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.StringType, true, new MetadataBuilder().build()),
+                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
                                     new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
@@ -488,7 +498,7 @@ public class ConvertTransformationTest {
                         "index=index_A | strcat \"329\" \"abc\" as mst | convert rmunit(mst) as res", testFile, ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.StringType, true, new MetadataBuilder().build()),
+                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
                                     new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
@@ -530,7 +540,7 @@ public class ConvertTransformationTest {
                         ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.StringType, true, new MetadataBuilder().build()),
+                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
                                     new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
@@ -572,7 +582,7 @@ public class ConvertTransformationTest {
                         ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.StringType, true, new MetadataBuilder().build()),
+                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
                                     new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
@@ -614,7 +624,7 @@ public class ConvertTransformationTest {
                         ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.StringType, true, new MetadataBuilder().build()),
+                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
                                     new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
@@ -655,7 +665,7 @@ public class ConvertTransformationTest {
                         ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.StringType, true, new MetadataBuilder().build()),
+                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
                                     new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
@@ -696,7 +706,7 @@ public class ConvertTransformationTest {
                         ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.StringType, true, new MetadataBuilder().build()),
+                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
                                     new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
@@ -737,7 +747,7 @@ public class ConvertTransformationTest {
                         ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.StringType, true, new MetadataBuilder().build()),
+                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
                                     new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
@@ -779,7 +789,7 @@ public class ConvertTransformationTest {
                         ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.StringType, true, new MetadataBuilder().build()),
+                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
                                     new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
@@ -820,7 +830,7 @@ public class ConvertTransformationTest {
                         testFile, ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.StringType, true, new MetadataBuilder().build()),
+                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
                                     new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
@@ -872,7 +882,7 @@ public class ConvertTransformationTest {
                         testFile, ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.StringType, true, new MetadataBuilder().build()),
+                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
                                     new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
@@ -923,7 +933,7 @@ public class ConvertTransformationTest {
                         "index=index_A | convert dur2sec(\"dur|offset\") AS dur_sec none(offset)", testFile, ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.StringType, true, new MetadataBuilder().build()),
+                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
                                     new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
                                     new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
