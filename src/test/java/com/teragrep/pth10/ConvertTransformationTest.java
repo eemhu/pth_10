@@ -71,6 +71,7 @@ public class ConvertTransformationTest {
     final StructType testSchema = new StructType(new StructField[] {
             new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
             new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
+            new StructField("isotime", DataTypes.StringType, true, new MetadataBuilder().build()),
             new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
             new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
             new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
@@ -108,6 +109,7 @@ public class ConvertTransformationTest {
             final StructType expectedSchema = new StructType(new StructField[] {
                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
                     new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
+                    new StructField("isotime", DataTypes.StringType, true, new MetadataBuilder().build()),
                     new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
                     new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
                     new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
@@ -144,6 +146,7 @@ public class ConvertTransformationTest {
             final StructType expectedSchema = new StructType(new StructField[] {
                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
                     new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
+                    new StructField("isotime", DataTypes.StringType, true, new MetadataBuilder().build()),
                     new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
                     new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
                     new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
@@ -181,22 +184,17 @@ public class ConvertTransformationTest {
     void testConvertMktime() {
         streamingTestUtil
                 .performDPLTest(
-                        "index=index_A | convert timeformat=\"%Y-%m-%d'T'%H:%M:%S.%f%z\" mktime(_time) as epochTime",
+                        "index=index_A | convert timeformat=\"%Y-%m-%d'T'%H:%M:%S.%f%z\" mktime(isotime) as epochTime",
                         testFile, ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
-                                    new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()),
                                     new StructField(
-                                            "partition",
-                                            DataTypes.StringType,
+                                            "_time",
+                                            DataTypes.TimestampType,
                                             true,
                                             new MetadataBuilder().build()
                                     ),
-                                    new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("epochTime", DataTypes.StringType, true, new MetadataBuilder().build())
+                                    new StructField("isotime", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()), new StructField("partition", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("epochTime", DataTypes.StringType, true, new MetadataBuilder().build())
                             });
                             Assertions.assertEquals(expectedSchema, ds.schema());
 
@@ -239,17 +237,7 @@ public class ConvertTransformationTest {
                                             true,
                                             new MetadataBuilder().build()
                                     ),
-                                    new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()),
-                                    new StructField(
-                                            "partition",
-                                            DataTypes.StringType,
-                                            true,
-                                            new MetadataBuilder().build()
-                                    ),
-                                    new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("a", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("epochTime", DataTypes.StringType, true, new MetadataBuilder().build())
+                                    new StructField("isotime", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()), new StructField("partition", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("a", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("epochTime", DataTypes.StringType, true, new MetadataBuilder().build())
                             });
                             Assertions.assertEquals(expectedSchema, ds.schema());
 
@@ -281,6 +269,7 @@ public class ConvertTransformationTest {
             final StructType expectedSchema = new StructType(new StructField[] {
                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
                     new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
+                    new StructField("isotime", DataTypes.StringType, true, new MetadataBuilder().build()),
                     new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
                     new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
                     new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
@@ -322,18 +311,13 @@ public class ConvertTransformationTest {
                         testFile, ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
-                                    new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()),
                                     new StructField(
-                                            "partition",
-                                            DataTypes.StringType,
+                                            "_time",
+                                            DataTypes.TimestampType,
                                             true,
                                             new MetadataBuilder().build()
                                     ),
-                                    new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("offsetM", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("offsetK", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("offsetG", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("memk_M", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("memk_K", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("memk_G", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("memk_def", DataTypes.StringType, true, new MetadataBuilder().build())
+                                    new StructField("isotime", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()), new StructField("partition", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("offsetM", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("offsetK", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("offsetG", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("memk_M", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("memk_K", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("memk_G", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("memk_def", DataTypes.StringType, true, new MetadataBuilder().build())
                             });
                             Assertions.assertEquals(expectedSchema, ds.schema());
 
@@ -399,18 +383,13 @@ public class ConvertTransformationTest {
                         testFile, ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
-                                    new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()),
                                     new StructField(
-                                            "partition",
-                                            DataTypes.StringType,
+                                            "_time",
+                                            DataTypes.TimestampType,
                                             true,
                                             new MetadataBuilder().build()
                                     ),
-                                    new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("mst", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("mst2", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("res", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("res2", DataTypes.StringType, true, new MetadataBuilder().build())
+                                    new StructField("isotime", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()), new StructField("partition", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("mst", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("mst2", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("res", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("res2", DataTypes.StringType, true, new MetadataBuilder().build())
                             });
                             Assertions.assertEquals(expectedSchema, ds.schema());
 
@@ -449,18 +428,13 @@ public class ConvertTransformationTest {
                         testFile, ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
-                                    new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()),
                                     new StructField(
-                                            "partition",
-                                            DataTypes.StringType,
+                                            "_time",
+                                            DataTypes.TimestampType,
                                             true,
                                             new MetadataBuilder().build()
                                     ),
-                                    new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("mst", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("mst2", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("res", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("res2", DataTypes.StringType, false, new MetadataBuilder().build())
+                                    new StructField("isotime", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()), new StructField("partition", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("mst", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("mst2", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("res", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("res2", DataTypes.StringType, false, new MetadataBuilder().build())
                             });
                             Assertions.assertEquals(expectedSchema, ds.schema());
 
@@ -498,18 +472,13 @@ public class ConvertTransformationTest {
                         "index=index_A | strcat \"329\" \"abc\" as mst | convert rmunit(mst) as res", testFile, ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
-                                    new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()),
                                     new StructField(
-                                            "partition",
-                                            DataTypes.StringType,
+                                            "_time",
+                                            DataTypes.TimestampType,
                                             true,
                                             new MetadataBuilder().build()
                                     ),
-                                    new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("mst", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("res", DataTypes.StringType, true, new MetadataBuilder().build())
+                                    new StructField("isotime", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()), new StructField("partition", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("mst", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("res", DataTypes.StringType, true, new MetadataBuilder().build())
                             });
                             Assertions.assertEquals(expectedSchema, ds.schema());
 
@@ -540,18 +509,13 @@ public class ConvertTransformationTest {
                         ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
-                                    new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()),
                                     new StructField(
-                                            "partition",
-                                            DataTypes.StringType,
+                                            "_time",
+                                            DataTypes.TimestampType,
                                             true,
                                             new MetadataBuilder().build()
                                     ),
-                                    new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("mst", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("res", DataTypes.StringType, true, new MetadataBuilder().build())
+                                    new StructField("isotime", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()), new StructField("partition", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("mst", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("res", DataTypes.StringType, true, new MetadataBuilder().build())
                             });
                             Assertions.assertEquals(expectedSchema, ds.schema());
 
@@ -582,18 +546,13 @@ public class ConvertTransformationTest {
                         ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
-                                    new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()),
                                     new StructField(
-                                            "partition",
-                                            DataTypes.StringType,
+                                            "_time",
+                                            DataTypes.TimestampType,
                                             true,
                                             new MetadataBuilder().build()
                                     ),
-                                    new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("mst", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("res", DataTypes.StringType, true, new MetadataBuilder().build())
+                                    new StructField("isotime", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()), new StructField("partition", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("mst", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("res", DataTypes.StringType, true, new MetadataBuilder().build())
                             });
                             Assertions.assertEquals(expectedSchema, ds.schema());
 
@@ -624,18 +583,13 @@ public class ConvertTransformationTest {
                         ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
-                                    new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()),
                                     new StructField(
-                                            "partition",
-                                            DataTypes.StringType,
+                                            "_time",
+                                            DataTypes.TimestampType,
                                             true,
                                             new MetadataBuilder().build()
                                     ),
-                                    new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("mst", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("res", DataTypes.StringType, true, new MetadataBuilder().build())
+                                    new StructField("isotime", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()), new StructField("partition", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("mst", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("res", DataTypes.StringType, true, new MetadataBuilder().build())
                             });
                             Assertions.assertEquals(expectedSchema, ds.schema());
 
@@ -665,18 +619,13 @@ public class ConvertTransformationTest {
                         ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
-                                    new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()),
                                     new StructField(
-                                            "partition",
-                                            DataTypes.StringType,
+                                            "_time",
+                                            DataTypes.TimestampType,
                                             true,
                                             new MetadataBuilder().build()
                                     ),
-                                    new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("mst", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("res", DataTypes.StringType, true, new MetadataBuilder().build())
+                                    new StructField("isotime", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()), new StructField("partition", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("mst", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("res", DataTypes.StringType, true, new MetadataBuilder().build())
                             });
                             Assertions.assertEquals(expectedSchema, ds.schema());
 
@@ -706,18 +655,13 @@ public class ConvertTransformationTest {
                         ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
-                                    new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()),
                                     new StructField(
-                                            "partition",
-                                            DataTypes.StringType,
+                                            "_time",
+                                            DataTypes.TimestampType,
                                             true,
                                             new MetadataBuilder().build()
                                     ),
-                                    new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("mst", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("res", DataTypes.StringType, true, new MetadataBuilder().build())
+                                    new StructField("isotime", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()), new StructField("partition", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("mst", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("res", DataTypes.StringType, true, new MetadataBuilder().build())
                             });
                             Assertions.assertEquals(expectedSchema, ds.schema());
 
@@ -747,18 +691,13 @@ public class ConvertTransformationTest {
                         ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
-                                    new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()),
                                     new StructField(
-                                            "partition",
-                                            DataTypes.StringType,
+                                            "_time",
+                                            DataTypes.TimestampType,
                                             true,
                                             new MetadataBuilder().build()
                                     ),
-                                    new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("mst", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("res", DataTypes.StringType, true, new MetadataBuilder().build())
+                                    new StructField("isotime", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()), new StructField("partition", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("mst", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("res", DataTypes.StringType, true, new MetadataBuilder().build())
                             });
                             Assertions.assertEquals(expectedSchema, ds.schema());
 
@@ -789,18 +728,13 @@ public class ConvertTransformationTest {
                         ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
-                                    new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()),
                                     new StructField(
-                                            "partition",
-                                            DataTypes.StringType,
+                                            "_time",
+                                            DataTypes.TimestampType,
                                             true,
                                             new MetadataBuilder().build()
                                     ),
-                                    new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("mst", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("res", DataTypes.StringType, true, new MetadataBuilder().build())
+                                    new StructField("isotime", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()), new StructField("partition", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("mst", DataTypes.StringType, false, new MetadataBuilder().build()), new StructField("res", DataTypes.StringType, true, new MetadataBuilder().build())
                             });
                             Assertions.assertEquals(expectedSchema, ds.schema());
 
@@ -830,18 +764,13 @@ public class ConvertTransformationTest {
                         testFile, ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
-                                    new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()),
                                     new StructField(
-                                            "partition",
-                                            DataTypes.StringType,
+                                            "_time",
+                                            DataTypes.TimestampType,
                                             true,
                                             new MetadataBuilder().build()
                                     ),
-                                    new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("with_results", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("no_results", DataTypes.StringType, true, new MetadataBuilder().build())
+                                    new StructField("isotime", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()), new StructField("partition", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("with_results", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("no_results", DataTypes.StringType, true, new MetadataBuilder().build())
                             });
                             Assertions.assertEquals(expectedSchema, ds.schema());
 
@@ -882,18 +811,13 @@ public class ConvertTransformationTest {
                         testFile, ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
-                                    new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()),
                                     new StructField(
-                                            "partition",
-                                            DataTypes.StringType,
+                                            "_time",
+                                            DataTypes.TimestampType,
                                             true,
                                             new MetadataBuilder().build()
                                     ),
-                                    new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("with_results", DataTypes.DoubleType, true, new MetadataBuilder().build()), new StructField("no_results", DataTypes.DoubleType, true, new MetadataBuilder().build())
+                                    new StructField("isotime", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()), new StructField("partition", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("with_results", DataTypes.DoubleType, true, new MetadataBuilder().build()), new StructField("no_results", DataTypes.DoubleType, true, new MetadataBuilder().build())
                             });
                             Assertions.assertEquals(expectedSchema, ds.schema());
 
@@ -933,18 +857,13 @@ public class ConvertTransformationTest {
                         "index=index_A | convert dur2sec(\"dur|offset\") AS dur_sec none(offset)", testFile, ds -> {
                             final StructType expectedSchema = new StructType(new StructField[] {
                                     new StructField("_raw", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("_time", DataTypes.TimestampType, true, new MetadataBuilder().build()),
-                                    new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()),
-                                    new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()),
                                     new StructField(
-                                            "partition",
-                                            DataTypes.StringType,
+                                            "_time",
+                                            DataTypes.TimestampType,
                                             true,
                                             new MetadataBuilder().build()
                                     ),
-                                    new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("dur_sec", DataTypes.StringType, true, new MetadataBuilder().build())
+                                    new StructField("isotime", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("dur", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("host", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("index", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("offset", DataTypes.LongType, true, new MetadataBuilder().build()), new StructField("partition", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("source", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("sourcetype", DataTypes.StringType, true, new MetadataBuilder().build()), new StructField("dur_sec", DataTypes.StringType, true, new MetadataBuilder().build())
                             });
                             Assertions.assertEquals(expectedSchema, ds.schema());
 

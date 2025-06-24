@@ -289,12 +289,31 @@ public class StepList implements VoidFunction2<Dataset<Row>, Long> {
                 LOGGER.info("------------------ Aggregates NOT USED (before seq. switch), using batchCollect!");
                 RowArrayAggregator agg0 = new RowArrayAggregator(sortBuffer, ds.schema());
                 ds = ds.agg(agg0.toColumn());
-                ds = ds.select(functions.explode(functions.col("`RowArrayAggregator(org.apache.spark.sql.Row)`.arrayOfInput")));
+
+                ds = ds
+                        .select(
+                                functions
+                                        .explode(
+                                                functions
+                                                        .col(
+                                                                "`RowArrayAggregator(org.apache.spark.sql.Row)`.arrayOfInput"
+                                                        )
+                                        )
+                        );
                 ds = ds.select("col.*");
 
                 RowArrayAggregator agg1 = new RowArrayAggregator(limitBuffer, ds.schema());
                 ds = ds.agg(agg1.toColumn());
-                ds = ds.select(functions.explode(functions.col("`RowArrayAggregator(org.apache.spark.sql.Row)`.arrayOfInput")));
+                ds = ds
+                        .select(
+                                functions
+                                        .explode(
+                                                functions
+                                                        .col(
+                                                                "`RowArrayAggregator(org.apache.spark.sql.Row)`.arrayOfInput"
+                                                        )
+                                        )
+                        );
                 ds = ds.select("col.*");
 
                 this.batchHandler.accept(ds);

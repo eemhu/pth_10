@@ -341,7 +341,11 @@ public class StreamingTestUtil {
             System.out.println(new PrettyTree(tree, Arrays.asList(parser.getRuleNames())).getTree());
         }
 
-        this.catalystVisitor.setConsumer(assertions);
+        Consumer<Dataset<Row>> collect = (ds) -> {
+            ds.collect();
+        };
+
+        this.catalystVisitor.setConsumer(collect.andThen(assertions));
 
         TranslationResultNode n = (TranslationResultNode) this.catalystVisitor.visit(tree);
         DataStreamWriter<Row> dsw;
