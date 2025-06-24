@@ -287,9 +287,9 @@ public class StepList implements VoidFunction2<Dataset<Row>, Long> {
             }
             else {
                 LOGGER.info("------------------ Aggregates NOT USED (before seq. switch), using batchCollect!");
-                RowArrayAggregator agg0 = new RowArrayAggregator(sortBuffer, ds.schema());
+                /*  RowArrayAggregator agg0 = new RowArrayAggregator(sortBuffer, ds.schema());
                 ds = ds.agg(agg0.toColumn());
-
+                
                 ds = ds
                         .select(
                                 functions
@@ -300,7 +300,7 @@ public class StepList implements VoidFunction2<Dataset<Row>, Long> {
                                                         )
                                         )
                         );
-                ds = ds.select("col.*");
+                ds = ds.select("col.*"); */
 
                 RowArrayAggregator agg1 = new RowArrayAggregator(limitBuffer, ds.schema());
                 ds = ds.agg(agg1.toColumn());
