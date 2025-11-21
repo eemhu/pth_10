@@ -91,7 +91,7 @@ public class DPLStreamingQueryListener extends StreamingQueryListener {
     public void onQueryIdle(final QueryIdleEvent event) {
         LOGGER.debug("onQueryIdle() called");
         final UUID streamId = event.id();
-        LOGGER.debug("ID of stream: {}", streamId);
+        LOGGER.debug("ID of stream: <{}>", streamId);
 
         if (queryId.equals(streamId)) {
             LOGGER.debug("ID of stream equals query ID");
