@@ -479,6 +479,7 @@ public class IplocationTransformationTest {
                 .performThrowingDPLTest(
                         StreamingQueryException.class, "index=index_A | iplocation allfields=true source",
                         this.testFile, (ds) -> {
+                            ds.collect(); // Does not run UDF without
                         }
                 );
 
